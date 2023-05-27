@@ -1,3 +1,6 @@
 ## service bus client
 
 https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-python-how-to-use-queues?tabs=passwordless
+
+
+## need learn to use psycopg2 to connect to postgresql
