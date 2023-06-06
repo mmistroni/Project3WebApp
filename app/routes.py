@@ -2,8 +2,8 @@ from app import app, db, queue_client
 from datetime import datetime
 from app.models import Attendee, Conference, Notification
 from flask import render_template, session, request, redirect, url_for, flash, make_response, session
-from azure.servicebus import Message
-from azure.servicebus import ServiceBusClient, ServiceBusMessage
+from azure.servicebus import ServiceBusClient
+from azure.servicebus import QueueClient, Message
 
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -74,15 +74,10 @@ def notification():
             ## Code below will be replaced by a message queue
             #################################################
             # TODO Call servicebus queue_client to enqueue notification ID
-            service_bus_conn = app.config.get('SERVICE_BUS_CONNECTION_STRING')
-            service_bus_queue = app.config.get('SERVICE_BUS_QUEUE_NAME')
-            servicebus_client = ServiceBusClient.from_connection_string(conn_str=service_bus_conn, logging_enable=True)
-            with servicebus_client:
-                sender = servicebus_client.get_queue_sender(queue_name=service_bus_queue)
-                message = ServiceBusMessage(notification.id)
-                logging.info(f'About to send notification:{notification.id} to {service_bus_queue}')
-                sender.send_messages(message)
-                logging.info('Message sent.....')
+            message = Message(notification.id)
+            logging.info(f'About to send notification:{notification.id}')
+            queue_client.send(message)
+            logging.info('Message sent.....')
             #################################################
 
             return redirect('/Notifications')

@@ -11,47 +11,24 @@ Example to show sending message(s) to a Service Bus Queue asynchronously.
 
 import os
 import asyncio
-from azure.servicebus import ServiceBusMessage
-from azure.servicebus.aio import ServiceBusClient
+from azure.servicebus import Message
+from azure.servicebus import ServiceBusClient
 
 CONNECTION_STR = 'Endpoint=sb://project3-servicebus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=1pK05VrVBDELBog4+2TNmgOSrmu8L3LWp+ASbFrsc3Y='
 QUEUE_NAME = 'notificationqueue'
 
 
-async def send_single_message(sender):
-    message = ServiceBusMessage("Single Message")
-    await sender.send_messages(message)
+def main():
+    from azure.servicebus import ServiceBusClient
+    from azure.servicebus import QueueClient, Message
+    # Create the QueueClient
+    queue_client = QueueClient.from_connection_string(CONNECTION_STR, QUEUE_NAME)
+    # Send a test message to the queue
+    for i in range (0,5):
+        msg = Message(b'1')
+        print('Sending')
+        queue_client.send(msg)
+        print("Send message is done.")
 
-
-async def send_a_list_of_messages(sender):
-    messages = [ServiceBusMessage("Message in list") for _ in range(10)]
-    await sender.send_messages(messages)
-
-
-async def send_batch_message(sender):
-    batch_message = await sender.create_message_batch()
-    for _ in range(10):
-        try:
-            batch_message.add_message(ServiceBusMessage("Message inside a ServiceBusMessageBatch"))
-        except ValueError:
-            # ServiceBusMessageBatch object reaches max_size.
-            # New ServiceBusMessageBatch object can be created here to send more data.
-            break
-    await sender.send_messages(batch_message)
-
-
-async def main():
-    servicebus_client = ServiceBusClient.from_connection_string(conn_str=CONNECTION_STR)
-
-    async with servicebus_client:
-        sender = servicebus_client.get_queue_sender(queue_name=QUEUE_NAME)
-        async with sender:
-            await send_single_message(sender)
-            await send_a_list_of_messages(sender)
-            await send_batch_message(sender)
-
-    print("Send message is done.")
-
-
-asyncio.run(main())
+main()
 

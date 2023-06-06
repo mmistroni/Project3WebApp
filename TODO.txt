@@ -4,3 +4,11 @@ https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-python
 
 
 ## need learn to use psycopg2 to connect to postgresql
+DONE
+
+## Next step is to send notification via app to service bus and have them picked up by the azure function. We wont deploy
+function til whole flow is running
+
+DONE
+
+# Next step. Update sql database via tables and send email notifications
