@@ -74,7 +74,7 @@ def notification():
             ## Code below will be replaced by a message queue
             #################################################
             # TODO Call servicebus queue_client to enqueue notification ID
-            message = Message(notification.id)
+            message = Message(str(notification.id))
             logging.info(f'About to send notification:{notification.id}')
             queue_client.send(message)
             logging.info('Message sent.....')
