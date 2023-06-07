@@ -12,3 +12,5 @@ function til whole flow is running
 DONE
 
 # Next step. Update sql database via tables and send email notifications
+
+https://www.postgresqltutorial.com/postgresql-python/update/

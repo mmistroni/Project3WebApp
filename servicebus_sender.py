@@ -24,11 +24,10 @@ def main():
     # Create the QueueClient
     queue_client = QueueClient.from_connection_string(CONNECTION_STR, QUEUE_NAME)
     # Send a test message to the queue
-    for i in range (0,5):
-        msg = Message(b'1')
-        print('Sending')
-        queue_client.send(msg)
-        print("Send message is done.")
+    msg = Message(b'8')
+    print('Sending')
+    queue_client.send(msg)
+    print("Send message is done.")
 
 main()
 
