@@ -68,11 +68,31 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 | *Azure WebService     |Basic B1       |         |£12              |
 
 ## Architecture Explanation
-Given the web application notification is in nature asynchronous, the best way to implement such logic would be to externalize the notification logic
-to an App Function, which is executed only when a notification is submitted.
-The best way for webapp and AppFunction to communicate in an asynchronous way is by leveragin Azure ServiceBus.
-The Azure Function and the webApp will share a PostGreSQL Database, which is being instantiated as a Single Server rather than a full fledged
-Database server, to save costs.
+Architecture Explanation
+This is a placeholder section where you can provide an explanation and reasoning for your architecture selection for both the Azure Web App and Azure Function.
+
+Use of the Web App service deployment ensures costs several things:
+
+Cost management.
+Reduced infrastructure management.
+Improved scaling options for both vertical and horizontal requirements.
+With this deployment it was possible to create a decoupled application utilizing a microservices architecture.
+Use of Azure Function provided the following benefits:
+
+Microservices design.
+Cost management.
+Reduced infrastructure management.
+Speedy deployment capability.
+Easy modification of the endpoint options.
+Overall overhead cost reduction, easy extensibility of the product design and easy management of the deployment process.
 
 
+Architecture Explanation
+The previous implementation of the application had the following pain points:
 
+The web application is not scalable to handle user load at peak
+When the admin sends out notifications, it's currently taking a long time because it's looping through all attendees, resulting in some HTTP timeout exceptions
+The current architecture is not cost-effective
+Through the migration to a microservice architecture and refactoring the notification logic to an Azure Function via a service bus queue message, the different components of the web application are decoupled. This makes it more scalable and sending out of notifications does not lead to HTTP timeout exceptions anymore.
+
+The migration to an Azure App Service and Azure Postgres database instance improves cost-efficiency
