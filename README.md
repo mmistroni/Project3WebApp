@@ -76,7 +76,6 @@ The web application is not scalable to handle user load at peak
 When the admin sends out notifications, it's currently taking a long time because it's looping through all attendees, resulting in some HTTP timeout exceptions
 The current architecture is not cost-effective
 Through the migration to a microservice architecture and refactoring the notification logic to an Azure Function via a service bus queue message, the different components of the web application are decoupled. This makes it more scalable and sending out of notifications does not lead to HTTP timeout exceptions anymore.
-
 The migration to an Azure App Service and Azure Postgres database instance improves cost-efficiency
 
 
@@ -94,4 +93,3 @@ Easy modification of the endpoint options.
 Overall overhead cost reduction, easy extensibility of the product design and easy management of the deployment process.
 
 
-Architecture Explanation
